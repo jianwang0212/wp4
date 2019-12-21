@@ -1,0 +1,16 @@
+  
+{% extends "layout.html" %}
+{% block content %}
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <small class="text-muted">{{  'JobID'  }}</small>
+              <a class="mr-2" href="{{ url_for('test',test_id=post.JobID) }}">{{ post.JobID }}</a>
+            </div>
+            <!-- <h2><a class="article-title" href="#">{{ 'JobText' }}</a></h2> -->
+            <p class="article-content">{{ post.JobText }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

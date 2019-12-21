@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ 'JobID' }}</a>
+          <small class="text-muted">{{ post.JobID }}</small>
+        </div>
+        <p class="article-content">{{ post.JobText }}</p>
+      </div>
+    </article>
+
+    <div class="col-md-8">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Quesitons</legend>
+                <div class="form-group">
+                    {{ form.answer_1.label(class="form-control-label") }}
+                    {% if form.answer_1.errors %}
+                        {{ form.answer_1(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.answer_1.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.answer_1(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+
+
+
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+
+        </form>
+    </div>
+
+
+{% endblock content %}
