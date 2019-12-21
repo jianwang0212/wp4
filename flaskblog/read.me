@@ -3,7 +3,6 @@ export FLASK_DEBUG=1
 flask run
 
 
-python web.py
 
 python
 from flaskblog import db
@@ -11,3 +10,15 @@ from flaskblog.models import Test
 db.drop_all()
 db.create_all()
 Test.query.all()
+
+
+//log on remotely
+
+// my local mac 
+ssh -L 9999:localhost:5000 127.0.0.1 yin@130.61.24.174
+
+http://130.61.24.174:5000
+
+First login to a ununtu server
+
+sudo apt-get update
