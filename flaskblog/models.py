@@ -43,3 +43,12 @@ class Category(db.Model):
     def __repr__(self):
         return self.category
 
+
+class Keyword(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    keyword = db.Column(db.Text, nullable=False)
+
+
+    def __repr__(self):
+        return self.category
+

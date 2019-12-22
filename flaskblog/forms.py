@@ -43,3 +43,11 @@ class CategoryForm(FlaskForm):
     # answer_2 = RadioField('Does this passage contain information about ZHC2?',choices=[('yes', 'Yes'), ('no', 'No')])
 
     submit = SubmitField('submit answers')
+
+class KeywordForm(FlaskForm):
+    keyword = StringField('What keyword do you want to add?')
+    # answer_2 = RadioField('Does this passage contain information about ZHC2?',choices=[('yes', 'Yes'), ('no', 'No')])
+
+    submit = SubmitField('submit keyword')
+
+

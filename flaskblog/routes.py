@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm,QuestionsForm,CategoryForm
-from flaskblog.models import User, Post, Test, Category
+from flaskblog.forms import RegistrationForm, LoginForm,QuestionsForm,CategoryForm, KeywordForm
+from flaskblog.models import User, Post, Test, Category, Keyword
 
 
 import pandas as pd
@@ -37,6 +37,19 @@ def category():
 		return redirect(url_for('home'))
 
 	return render_template('category.html', posts = posts,form = form)
+
+@app.route("/keyword", methods = ['GET','POST'])
+def keyword():
+	form = KeywordForm()
+	if form.validate_on_submit():
+		answer = Keyword(keyword = form.keyword.data)
+		db.session.add(answer)
+		db.session.commit()
+		flash('Your answer has been saved', 'success')
+		return redirect(url_for('home'))
+
+	return render_template('keyword.html', posts = posts,form = form)
+
 
 @app.route("/register", methods = ['GET','POST'])
 def register():
