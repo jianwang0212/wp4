@@ -24,6 +24,8 @@ nohup /root/wp4/venv/bin/python3 /root/wp4/venv/bin/flask run --host=0.0.0.0
 2. pip3 install -r requirements.txt  && pip install --upgrade pip
 3. cd /Users/Zi/Google\ Drive/wp4
 
+debug mode: ## don't use virtual environment
+python run.py
 
 export FLASK_APP=run.py
 flask run --host=0.0.0.0
