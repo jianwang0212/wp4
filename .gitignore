@@ -1,6 +1,12 @@
 # Prerequisites
 *.d
 
+# vevn
+venv/
+
+# python 
+*.pyc
+
 # Compiled Object files
 *.slo
 *.lo
