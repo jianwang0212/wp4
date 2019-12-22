@@ -1,0 +1,49 @@
+  
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="col-md-8">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Adding Category</legend>
+                <div class="form-group">
+                    {{ form.category.label(class="form-control-label") }}
+                    {% if form.category.errors %}
+                        {{ form.category(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.category.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.category(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+
+
+
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+
+        </form>
+    </div>
+
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <small class="text-muted">{{  'JobID'  }}</small>
+              <a class="mr-2" href="{{ url_for('test',test_id=post.JobID) }}">{{ post.JobID }}</a>
+            </div>
+            <!-- <h2><a class="article-title" href="#">{{ 'JobText' }}</a></h2> -->
+            <p class="article-content">{{ post.JobText }}</p>
+          </div>
+        </article>
+    {% endfor %}
+
+
+{% endblock content %}

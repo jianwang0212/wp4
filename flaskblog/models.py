@@ -33,4 +33,13 @@ class Test(db.Model):
 
 
     def __repr__(self):
-        return self.answers
+        return self.answer_1
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.Text, nullable=False)
+
+
+    def __repr__(self):
+        return self.category
+

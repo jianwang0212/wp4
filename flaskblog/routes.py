@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm,QuestionsForm
-from flaskblog.models import User, Post, Test
+from flaskblog.forms import RegistrationForm, LoginForm,QuestionsForm,CategoryForm
+from flaskblog.models import User, Post, Test, Category
 
 
 import pandas as pd
@@ -26,9 +26,17 @@ for i in df_list:
 def home():
 	return render_template('home.html', posts = posts)
 
-@app.route("/about")
-def about():
-	return "<h1>About page</h1>"
+@app.route("/category", methods = ['GET','POST'])
+def category():
+	form = CategoryForm()
+	if form.validate_on_submit():
+		answer = Category(category = form.category.data)
+		db.session.add(answer)
+		db.session.commit()
+		flash('Your answer has been saved', 'success')
+		return redirect(url_for('home'))
+
+	return render_template('category.html', posts = posts,form = form)
 
 @app.route("/register", methods = ['GET','POST'])
 def register():
