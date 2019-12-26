@@ -8,7 +8,7 @@ venv/
 *.pyc
 
 # database
-*Db.*
+*.db
 
 # Compiled Object files
 *.slo
