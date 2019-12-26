@@ -14,9 +14,14 @@ ps aux| python
 kill -9 'the python'
 cd wp4 
 export FLASK_APP=run.py
+/root/wp4/venv/bin/python3 /root/wp4/venv/bin/flask run --host=0.0.0.0
+
 nohup /root/wp4/venv/bin/python3 /root/wp4/venv/bin/flask run --host=0.0.0.0
 
+################## reset database ##################
+/root/wp4/venv/bin/python3 /root/wp4/reset_dt.py
 
+rm /root/wp4/flaskblog/site.db
 
 ################## In local mac: ##################
 

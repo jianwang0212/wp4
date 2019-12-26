@@ -7,6 +7,9 @@ venv/
 # python 
 *.pyc
 
+# database
+*Db.*
+
 # Compiled Object files
 *.slo
 *.lo
