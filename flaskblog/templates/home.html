@@ -6,11 +6,33 @@
           <div class="media-body">
             <div class="article-metadata">
               <small class="text-muted">{{  'JobID'  }}</small>
-              <a class="mr-2" href="{{ url_for('test',test_id=post.JobID) }}">{{ post.JobID }}</a>
+              <small class="text-muted">{{  post.JobID  }}</small>
+              <a class="mr-2" href="{{ url_for('test',test_id=post.JobID) }}">Adding labels</a>            <a class="mr-4" href="{{ url_for('keyword',keyword_id=post.JobID) }}">Adding keyword</a>
+
             </div>
             <!-- <h2><a class="article-title" href="#">{{ 'JobText' }}</a></h2> -->
             <p class="article-content">{{ post.JobText }}</p>
-          </div>
+              <div>
+                <small class="text-muted">{{  '### Labels: ' }}</small>
+                    {% for label in labels %}
+                        {% if post.JobID  == label.jobID %}
+                        
+                            <a class="text-info">{{  label.answer_1 }}</a>
+           
+                        {% endif %}
+                    {% endfor %}
+              </div>
+              <div>
+                <small class="text-muted">{{  '### keywords: ' }}</small>
+                      {% for keyword in keywords %}
+
+                              <a class="text-secondary">{{  keyword.keyword }}</a>
+
+                      {% endfor %}
+              </div>
+            </div>
+
         </article>
+
     {% endfor %}
 {% endblock content %}

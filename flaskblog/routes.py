@@ -2,8 +2,9 @@ from flask import render_template, url_for, flash, redirect
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm,QuestionsForm,CategoryForm, KeywordForm
 from flaskblog.models import User, Post, Test, Category, Keyword
+from sqlalchemy.orm import load_only
 
-
+### read from csv file as posts 
 import pandas as pd
 df = pd.read_excel('oxfordshire_lep_with_text.xlsx', sheet_name = 'Construction 2019')
 df = df.dropna(subset=['JobText'])
@@ -20,11 +21,19 @@ for i in df_list:
     posts.append(element)
 
 
+### construct the category
+old_categories = [('Industry 4.0', 'Industry 4.0'), ('Oxfordshire Plumbing', 'Oxfordshire Plumbing'),('Engineering Construction', 'Engineering Construction')]
+
 
 @app.route("/")
-@app.route("/home")
+@app.route("/home",methods = ['GET','POST'])
 def home():
-	return render_template('home.html', posts = posts)
+
+	labels = Test.query.all()
+	keywords = Keyword.query.all()
+
+	return render_template('home.html', posts = posts , labels = labels, keywords = keywords)
+
 
 @app.route("/category", methods = ['GET','POST'])
 def category():
@@ -38,17 +47,6 @@ def category():
 
 	return render_template('category.html', posts = posts,form = form)
 
-@app.route("/keyword", methods = ['GET','POST'])
-def keyword():
-	form = KeywordForm()
-	if form.validate_on_submit():
-		answer = Keyword(keyword = form.keyword.data)
-		db.session.add(answer)
-		db.session.commit()
-		flash('Your answer has been saved', 'success')
-		return redirect(url_for('home'))
-
-	return render_template('keyword.html', posts = posts,form = form)
 
 
 @app.route("/register", methods = ['GET','POST'])
@@ -77,12 +75,13 @@ def login():
 
 @app.route("/test/<test_id>", methods = ['GET','POST'])
 def test(test_id):
-	print(test_id)
+	# print(test_id)
 	post = next(item for item in posts if item["JobID"] == int(test_id))
-
+	seperator = ', '
 	form = QuestionsForm()
+	form.answer_1.choices = old_categories + [(category.category,category.category) for category in Category.query.all()]
 	if form.validate_on_submit():
-		answer = Test(jobID = int(test_id), answer_1 = form.answer_1.data)
+		answer = Test(jobID = int(test_id), answer_1 = seperator.join(form.answer_1.data)) # change a list to a string
 		db.session.add(answer)
 		db.session.commit()
 		flash('Your answer has been saved', 'success')
@@ -90,4 +89,15 @@ def test(test_id):
 
 	return render_template('test.html', post = post,title = 'test', form = form)
 
+@app.route("/keyword<keyword_id>", methods = ['GET','POST'])
+def keyword(keyword_id):
+	post = next(item for item in posts if item["JobID"] == int(keyword_id))
+	form = KeywordForm()
+	if form.validate_on_submit():
+		answer = Keyword(jobID = int(keyword_id),keyword = form.keyword.data)
+		db.session.add(answer)
+		db.session.commit()
+		flash('Your answer has been saved', 'success')
+		return redirect(url_for('home'))
 
+	return render_template('keyword.html', post = post,form = form)

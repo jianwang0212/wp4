@@ -1,12 +1,20 @@
-  
 {% extends "layout.html" %}
 {% block content %}
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ 'JobID' }}</a>
+          <small class="text-muted">{{ post.JobID }}</small>
+        </div>
+        <p class="article-content">{{ post.JobText }}</p>
+      </div>
+    </article>
 
     <div class="col-md-8">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Adding keyword</legend>
+                <legend class="border-bottom mb-4">Quesitons</legend>
                 <div class="form-group">
                     {{ form.keyword.label(class="form-control-label") }}
                     {% if form.keyword.errors %}
@@ -31,19 +39,6 @@
 
         </form>
     </div>
-
-    {% for post in posts %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <small class="text-muted">{{  'JobID'  }}</small>
-              <a class="mr-2" href="{{ url_for('test',test_id=post.JobID) }}">{{ post.JobID }}</a>
-            </div>
-            <!-- <h2><a class="article-title" href="#">{{ 'JobText' }}</a></h2> -->
-            <p class="article-content">{{ post.JobText }}</p>
-          </div>
-        </article>
-    {% endfor %}
 
 
 {% endblock content %}

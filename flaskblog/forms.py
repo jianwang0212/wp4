@@ -1,7 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField,RadioField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from flaskblog.models import User
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField,RadioField, SelectMultipleField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Required
+from flaskblog.models import User, Category
+from wtforms.widgets import ListWidget, CheckboxInput
+from flaskblog import app, db, bcrypt
+
+
+
+class MultiCheckboxField(SelectMultipleField):
+    widget          = ListWidget(prefix_label=False)
+    option_widget   = CheckboxInput()
 
 
 class RegistrationForm(FlaskForm):
@@ -33,8 +41,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class QuestionsForm(FlaskForm):
-    answer_1 = RadioField('Which label best applies?',choices=[('Industry 4.0', 'Industry 4.0'), ('Oxfordshire Plumbing', 'Oxfordshire Plumbing'),('Engineering Construction', 'Engineering Construction')])
-    # answer_2 = RadioField('Does this passage contain information about ZHC2?',choices=[('yes', 'Yes'), ('no', 'No')])
+    answer_1 = MultiCheckboxField('Which label best applies?', choices=[])
 
     submit = SubmitField('submit answers')
 
@@ -46,7 +53,6 @@ class CategoryForm(FlaskForm):
 
 class KeywordForm(FlaskForm):
     keyword = StringField('What keyword do you want to add?')
-    # answer_2 = RadioField('Does this passage contain information about ZHC2?',choices=[('yes', 'Yes'), ('no', 'No')])
 
     submit = SubmitField('submit keyword')
 
