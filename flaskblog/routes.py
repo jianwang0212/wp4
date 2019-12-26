@@ -42,10 +42,10 @@ def category():
 		answer = Category(category = form.category.data)
 		db.session.add(answer)
 		db.session.commit()
-		flash('Your answer has been saved', 'success')
+		flash('New category has been saved', 'success')
 		return redirect(url_for('home'))
 
-	return render_template('category.html', posts = posts,form = form)
+	return render_template('category.html', posts = posts, form = form)
 
 
 
@@ -97,7 +97,7 @@ def keyword(keyword_id):
 		answer = Keyword(jobID = int(keyword_id),keyword = form.keyword.data)
 		db.session.add(answer)
 		db.session.commit()
-		flash('Your answer has been saved', 'success')
+		flash('Keyword has been saved', 'success')
 		return redirect(url_for('home'))
 
 	return render_template('keyword.html', post = post,form = form)

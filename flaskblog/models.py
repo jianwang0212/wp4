@@ -28,6 +28,7 @@ class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     jobID = db.Column(db.Integer)
     answer_1 = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 
     def __init__(self,jobID,answer_1):
@@ -40,6 +41,7 @@ class Test(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 
     def __repr__(self):
@@ -50,6 +52,7 @@ class Keyword(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     keyword = db.Column(db.Text, nullable=False)
     jobID = db.Column(db.Integer)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
         return self.category
