@@ -1,14 +1,6 @@
 
 {% extends "layout.html" %}
 {% block content %}
-  <div class="col-md-8">
-    <small class="text-muted">{{  '### Current categories: ' }}</small>
-        {% for label in labels %}
-                <a class="text-info">{{  label }}</a>
-                <br />
-
-        {% endfor %}
-  </div>
 
     <div class="col-md-8">
         <form method="POST" action="">

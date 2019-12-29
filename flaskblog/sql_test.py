@@ -1,6 +1,5 @@
 import sqlite3
-from datetime import datetime
-from sqlalchemy.sql import func
+
 
 ############# Original Database ######################
 conn = sqlite3.connect('29_dec_site.db')

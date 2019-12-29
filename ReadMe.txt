@@ -16,7 +16,7 @@ kill -9 'the python'
 cd wp4
 export FLASK_APP=run.py
 /root/wp4/venv/bin/python3 /root/wp4/venv/bin/flask run --host=0.0.0.0
-
+http://173.230.137.72:5000/
 nohup /root/wp4/venv/bin/python3 /root/wp4/venv/bin/flask run --host=0.0.0.0
 
 ################## reset database ##################
