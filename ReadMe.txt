@@ -7,12 +7,13 @@
 4. git clone https://github.com/jianwang0212/wp4.git
 5. python3 -m venv /root/wp4/venv
 6. source venv/bin/activate && pip install --upgrade pip
-7. cd wp4 && pip3 install -r requirements.txt 
-
+7. cd wp4 && pip3 install -r requirements.txt
+8.(freeze a requirement) pip freeze --local > requirement.txt
+9. deactivate
 
 ps aux| python
 kill -9 'the python'
-cd wp4 
+cd wp4
 export FLASK_APP=run.py
 /root/wp4/venv/bin/python3 /root/wp4/venv/bin/flask run --host=0.0.0.0
 
@@ -39,6 +40,9 @@ flask run --host=0.0.0.0
 rsync -avz -e ssh root@173.230.137.72:/root/wp4/flaskblog/site.db /Users/Zi/Downloads --exclude='env' --exclude='*.py'
 
 
+#### Get a look at the db ###
+sqlite3 site.db
+select * from test;
 
 reference instruction:
 https://www.youtube.com/watch?v=goToXTC96Co

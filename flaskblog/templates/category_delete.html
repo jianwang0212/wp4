@@ -14,21 +14,22 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Add categories</legend>
+                <legend class="border-bottom mb-4">Delete categories</legend>
+
+
                 <div class="form-group">
-                    {{ form.category.label(class="form-control-label") }}
-                    {% if form.category.errors %}
-                        {{ form.category(class="form-control form-control-lg is-invalid") }}
+                    {{ form.category_delete.label(class="form-control-label") }}
+                    {% if form.category_delete.errors %}
+                        {{ form.category_delete(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.category.errors %}
+                            {% for error in form.category_delete.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.category(class="form-control form-control-lg") }}
+                        {{ form.category_delete(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-
 
 
 

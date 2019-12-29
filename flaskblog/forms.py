@@ -47,8 +47,10 @@ class QuestionsForm(FlaskForm):
 
 class CategoryForm(FlaskForm):
     category = StringField('What category do you want to add into the ML annotation?')
-    # answer_2 = RadioField('Does this passage contain information about ZHC2?',choices=[('yes', 'Yes'), ('no', 'No')])
+    submit = SubmitField('submit answers')
 
+class CategoryDeleteForm(FlaskForm):
+    category_delete = MultiCheckboxField('Which category do you want to delete? ', choices=[])
     submit = SubmitField('submit answers')
 
 class KeywordForm(FlaskForm):
