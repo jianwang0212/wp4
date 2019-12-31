@@ -3,6 +3,7 @@ from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, QuestionsForm, CategoryForm, KeywordForm, CategoryDeleteForm, KeywordDeleteForm
 from flaskblog.models import User, Post, Test, Category, Keyword, Complete
 from sqlalchemy.orm import load_only
+from flask_table import Table, Col
 
 # read from csv file as posts
 import pandas as pd
@@ -21,7 +22,7 @@ for i in df_list:
     }
     posts.append(element)
 
-posts = posts[1:3]
+posts = posts[1:100]
 # construct the category
 old_categories = [('Industry 4.0', 'Industry 4.0'), ('Oxfordshire Plumbing',
                                                      'Oxfordshire Plumbing'), ('Engineering Construction', 'Engineering Construction')]
@@ -200,3 +201,28 @@ def complete(complete_id):
     db.session.commit()
     flash('Complete!', 'success')
     return redirect(url_for('home'))
+
+
+# Declare your table
+class ItemTable(Table):
+    name = Col('Keyword')
+    description = Col('Frequency')
+
+
+@app.route("/view_keyword", methods=['GET', 'POST'])
+def view_keyword():
+    labels = Test.query.all()
+    keywords = Keyword.query.all()
+    items = []
+    joint_post = ' '.join((post.get('JobText')).encode('ascii', 'ignore').decode('ascii')
+
+                          for post in posts)
+
+    for keyword in keywords:
+        frequency = joint_post.count(keyword.keyword)
+        # items = items.append(Item(keyword.keyword, frequency))
+        # print(post.get('JobText').count(keyword.keyword))
+        element = dict(name=keyword.keyword, description=frequency)
+        items.append(element)
+    table = ItemTable(items)
+    return render_template('view_keyword.html', posts=posts, labels=labels, keywords=keywords, table=table)
