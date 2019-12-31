@@ -33,11 +33,18 @@ old_categories_list = ['Industry 4.0',
 @app.route("/")
 @app.route("/home", methods=['GET', 'POST'])
 def home():
+
     labels = Test.query.all()
     keywords = Keyword.query.all()
     complete = Complete.query.all()
+    complete_post_id_list = []
 
-    return render_template('home.html', posts=posts, labels=labels, keywords=keywords, complete=complete)
+    for complete_post in complete:
+        print(type(complete_post.jobID))
+        complete_post_id_list.append(complete_post.jobID)
+    print(complete_post_id_list)
+
+    return render_template('home.html', posts=posts, labels=labels, keywords=keywords, complete=complete, complete_post_id_list=complete_post_id_list)
 
 
 @app.route("/completed_posts", methods=['GET', 'POST'])
@@ -55,9 +62,14 @@ def uncompleted_posts():
     labels = Test.query.all()
     keywords = Keyword.query.all()
     complete = Complete.query.all()
+    complete_post_id_list = []
 
+    for complete_post in complete:
+        print(type(complete_post.jobID))
+        complete_post_id_list.append(complete_post.jobID)
+    print(complete_post_id_list)
     return render_template('uncomplete_posts.html', posts=posts, labels=labels,
-                           complete=complete, keywords=keywords, title='uncomplete')
+                           complete=complete, keywords=keywords, title='uncomplete',  complete_post_id_list=complete_post_id_list)
 
 
 @app.route("/category", methods=['GET', 'POST'])

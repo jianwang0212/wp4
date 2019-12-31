@@ -3,7 +3,7 @@
 {% block content %}
     {% for post in posts %}
       {% for complete_post in complete %}
-        {% if complete_post.jobID != post.JobID %}
+        {% if post.JobID not in complete_post_id_list %}
           <article class="media content-section">
 
             <div class="media-body">
