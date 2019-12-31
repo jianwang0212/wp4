@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, QuestionsForm, CategoryForm, KeywordForm, CategoryDeleteForm, KeywordDeleteForm
-from flaskblog.models import User, Post, Test, Category, Keyword
+from flaskblog.models import User, Post, Test, Category, Keyword, Complete
 from sqlalchemy.orm import load_only
 
 # read from csv file as posts
@@ -36,6 +36,26 @@ def home():
     keywords = Keyword.query.all()
 
     return render_template('home.html', posts=posts, labels=labels, keywords=keywords)
+
+
+@app.route("/completed_posts", methods=['GET', 'POST'])
+def completed_posts():
+    labels = Test.query.all()
+    keywords = Keyword.query.all()
+    complete = Complete.query.all()
+
+    return render_template('complete_posts.html', posts=posts, labels=labels,
+                           complete=complete, keywords=keywords, title='complete')
+
+
+@app.route("/uncompleted_posts", methods=['GET', 'POST'])
+def uncompleted_posts():
+    labels = Test.query.all()
+    keywords = Keyword.query.all()
+    complete = Complete.query.all()
+
+    return render_template('uncomplete_posts.html', posts=posts, labels=labels,
+                           complete=complete, keywords=keywords, title='uncomplete')
 
 
 @app.route("/category", methods=['GET', 'POST'])
@@ -132,7 +152,6 @@ def test_delete(test_id):
 
     labels = Test.query.filter_by(
         jobID=int(test_id)).all()
-    print(labels)
     for label in labels:
         db.session.delete(label)
         db.session.commit()
@@ -172,3 +191,12 @@ def keyword_delete():
         return redirect(url_for('home'))
 
     return render_template('keyword_delete.html', posts=posts, form=form, labels=keyword_list)
+
+
+@app.route("/complete/<complete_id>", methods=['GET', 'POST'])
+def complete(complete_id):
+    answer = Complete(jobID=int(complete_id))
+    db.session.add(answer)
+    db.session.commit()
+    flash('Complete!', 'success')
+    return redirect(url_for('home'))

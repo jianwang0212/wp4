@@ -1,0 +1,57 @@
+
+{% extends "layout.html" %}
+{% block content %}
+    {% for post in posts %}
+      {% for complete_post in complete %}
+        {% if complete_post.jobID == post.JobID %}
+          <article class="media content-section">
+
+            <div class="media-body">
+              <div class="article-metadata">
+                <small class="text-muted">{{  'JobID'  }}</small>
+                <small class="text-muted">{{  post.JobID  }}</small>
+                <a class="mr-2" href="{{ url_for('test',test_id=post.JobID) }}">Add label</a>
+                <a class="mr-2" href="{{ url_for('test_delete',test_id=post.JobID) }}">Clear all labels</a>
+                <a class="mr-2" href="{{ url_for('keyword',keyword_id=post.JobID) }}">Add keyword</a>
+                <a class="mr-2" href="{{ url_for('keyword_delete',keyword_id=post.JobID) }}">Delete keyword</a>
+                <a class="ml-4" href="{{ url_for('complete',complete_id=post.JobID) }}">Complete this ad</a>
+              </div>
+              <!-- <h2><a class="article-title" href="#">{{ 'JobText' }}</a></h2> -->
+
+              {% set ns = namespace(post_copy = post.JobText) %}
+              {% for keyword in keywords %}
+                {% if keyword.keyword in post.JobText %}
+                    {%set ns.post_copy = ns.post_copy.replace(keyword.keyword,'<a class="text-warning">' + keyword.keyword+ '</a>')%}
+                {% endif %}
+              {% endfor %}
+
+              {% autoescape false %}
+                   <p class="article-content">{{ns.post_copy}}<p/>
+              {% endautoescape %}
+
+                <div>
+                  <small class="text-muted">{{  '### Labels: ' }}</small>
+                      {% for label in labels %}
+                          {% if post.JobID  == label.jobID %}
+
+                              <a class="text-info">{{  label.answer_1 }}.</a>
+
+                          {% endif %}
+                      {% endfor %}
+                </div>
+                <div>
+                  <small class="text-muted">{{  '### keywords: ' }}</small>
+                        {% for keyword in keywords %}
+                              {% if keyword.keyword in post.JobText %}
+                                <a class="text-secondary">{{  keyword.keyword }}.</a>
+                              {% endif %}
+
+                        {% endfor %}
+                </div>
+              </div>
+
+          </article>
+          {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endblock content %}

@@ -60,3 +60,13 @@ class Keyword(db.Model):
 
     def __repr__(self):
         return self.keyword
+
+
+class Complete(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jobID = db.Column(db.Integer)
+    date_posted = db.Column(db.DateTime,
+                            default=datetime.utcnow)
+
+    def __repr__(self):
+        return self.jobID
