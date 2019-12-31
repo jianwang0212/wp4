@@ -6,7 +6,13 @@
 
           <div class="media-body">
             <div class="article-metadata">
-              <small class="text-muted">{{  'JobID'  }}</small>
+              {% for complete_post in complete %}
+                {% if complete_post.jobID == post.JobID %}
+                  <small class="text-warning bg-danger">{{  '(completed) JobID'  }}</small>
+                {% else %}
+                  <small class="text-muted">{{  'JobID'  }}</small>
+                {% endif %}
+              {% endfor %}
               <small class="text-muted">{{  post.JobID  }}</small>
               <a class="mr-2" href="{{ url_for('test',test_id=post.JobID) }}">Add label</a>
               <a class="mr-2" href="{{ url_for('test_delete',test_id=post.JobID) }}">Clear all labels</a>

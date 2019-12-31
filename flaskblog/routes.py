@@ -35,8 +35,9 @@ old_categories_list = ['Industry 4.0',
 def home():
     labels = Test.query.all()
     keywords = Keyword.query.all()
+    complete = Complete.query.all()
 
-    return render_template('home.html', posts=posts, labels=labels, keywords=keywords)
+    return render_template('home.html', posts=posts, labels=labels, keywords=keywords, complete=complete)
 
 
 @app.route("/completed_posts", methods=['GET', 'POST'])
