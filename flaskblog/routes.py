@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, QuestionsForm, CategoryForm, KeywordForm, CategoryDeleteForm
+from flaskblog.forms import RegistrationForm, LoginForm, QuestionsForm, CategoryForm, KeywordForm, CategoryDeleteForm, KeywordDeleteForm
 from flaskblog.models import User, Post, Test, Category, Keyword
 from sqlalchemy.orm import load_only
 
@@ -21,7 +21,7 @@ for i in df_list:
     }
     posts.append(element)
 
-
+posts = posts[1:3]
 # construct the category
 old_categories = [('Industry 4.0', 'Industry 4.0'), ('Oxfordshire Plumbing',
                                                      'Oxfordshire Plumbing'), ('Engineering Construction', 'Engineering Construction')]
@@ -149,6 +149,26 @@ def keyword(keyword_id):
         db.session.add(answer)
         db.session.commit()
         flash('Keyword has been saved', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('keyword', keyword_id=keyword_id))
 
     return render_template('keyword.html', post=post, form=form)
+
+
+@app.route("/keyword/delete", methods=['GET', 'POST'])
+def keyword_delete():
+    form = KeywordDeleteForm()
+    keyword_list = [keyword.keyword for keyword in Keyword.query.all()]
+    form.keyword_delete.choices = [
+        (keyword.keyword, keyword.keyword) for keyword in Keyword.query.all()]
+    if form.validate_on_submit():
+        list_to_delete = form.keyword_delete.data
+        for string in list_to_delete:
+            delete_this = Keyword.query.filter_by(
+                keyword=string).first()
+            db.session.delete(delete_this)
+            db.session.commit()
+
+        flash('Deleted', 'success')
+        return redirect(url_for('home'))
+
+    return render_template('keyword_delete.html', posts=posts, form=form, labels=keyword_list)

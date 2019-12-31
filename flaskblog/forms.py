@@ -55,7 +55,8 @@ class CategoryDeleteForm(FlaskForm):
 
 class KeywordForm(FlaskForm):
     keyword = StringField('What keyword do you want to add?')
-
     submit = SubmitField('submit keyword')
 
-
+class KeywordDeleteForm(FlaskForm):
+    keyword_delete = MultiCheckboxField('Which keyword do you want to delete? ', choices=[])
+    submit = SubmitField('submit answers')

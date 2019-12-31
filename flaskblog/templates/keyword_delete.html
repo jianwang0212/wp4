@@ -1,0 +1,38 @@
+
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="col-md-8">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete keywords</legend>
+
+
+                <div class="form-group">
+                    {{ form.keyword_delete.label(class="form-control-label") }}
+                    {% if form.keyword_delete.errors %}
+                        {{ form.keyword_delete(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.keyword_delete.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.keyword_delete(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+
+
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+
+        </form>
+    </div>
+
+
+
+{% endblock content %}
