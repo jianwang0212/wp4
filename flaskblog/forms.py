@@ -44,7 +44,12 @@ class LoginForm(FlaskForm):
 
 class QuestionsForm(FlaskForm):
     answer_1 = MultiCheckboxField('Which label best applies?', choices=[])
+    submit = SubmitField('submit answers')
 
+
+class LabelDeleteForm(FlaskForm):
+    answer_1 = MultiCheckboxField(
+        'Which label do you want to delete?', choices=[])
     submit = SubmitField('submit answers')
 
 

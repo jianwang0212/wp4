@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, QuestionsForm, CategoryForm, KeywordForm, CategoryDeleteForm, KeywordDeleteForm
+from flaskblog.forms import RegistrationForm, LoginForm, QuestionsForm, CategoryForm, KeywordForm, CategoryDeleteForm, KeywordDeleteForm, LabelDeleteForm
 from flaskblog.models import User, Post, Test, Category, Keyword, Complete
 from sqlalchemy.orm import load_only
 from flask_table import Table, Col
@@ -163,14 +163,30 @@ def test(test_id):
 
 @app.route("/test/<test_id>/clear_label", methods=['GET', 'POST'])
 def test_delete(test_id):
+    post = next(item for item in posts if item["JobID"] == int(
+        test_id))
+    form = LabelDeleteForm()
 
     labels = Test.query.filter_by(
         jobID=int(test_id)).all()
-    for label in labels:
-        db.session.delete(label)
-        db.session.commit()
-    flash('Deleted!', 'success')
-    return redirect(url_for('home'))
+    form.answer_1.choices = [(label.answer_1, label.answer_1)
+                             for label in labels]
+    if form.validate_on_submit():
+        answers = form.answer_1.data
+        for answer in answers:
+            # change a list to a string
+            delete_this = Test.query.filter_by(
+                answer_1=answer, jobID=int(test_id)).first()
+
+            db.session.delete(delete_this)
+            db.session.commit()
+        flash('Your answer has been saved', 'success')
+        return redirect(url_for('home'))
+    # for label in labels:
+    #     db.session.delete(label)
+    #     db.session.commit()
+    # flash('Deleted!', 'success')
+    return render_template('delete_labels.html', post=post,  form=form)
 
 
 @app.route("/keyword<keyword_id>", methods=['GET', 'POST'])

@@ -14,7 +14,7 @@
                 {% endif %}
               <small class="text-muted">{{  post.JobID  }}</small>
               <a class="mr-2" href="{{ url_for('test',test_id=post.JobID) }}">Add label</a>
-              <a class="mr-2" href="{{ url_for('test_delete',test_id=post.JobID) }}">Clear all labels</a>
+              <a class="mr-2" href="{{ url_for('test_delete',test_id=post.JobID) }}">Delete label</a>
               <a class="mr-2" href="{{ url_for('keyword',keyword_id=post.JobID) }}">Add keyword</a>
               <a class="mr-2" href="{{ url_for('keyword_delete',keyword_id=post.JobID) }}">Delete keyword</a>
 
