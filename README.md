@@ -16,7 +16,7 @@ Web tool for machine learning annotation
 
 
 ## Install & Run
-'''shell
+```shell
 1. sudo apt-get update
 2. sudo apt-get install python3-pip
 3. sudo apt install python3-venv
@@ -29,4 +29,5 @@ Web tool for machine learning annotation
 10. cd wp4
 11. export FLASK_APP=run.py
 12. /root/wp4/venv/bin/python3 /root/wp4/venv/bin/flask run --host=0.0.0.0
-'''
+```
+
