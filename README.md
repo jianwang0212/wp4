@@ -1,4 +1,4 @@
-# WP4 - Oxford University AI Project (https://www.law.ox.ac.uk/unlocking-potential-artificial-intelligence-english-law)
+# WP4 -  [![Oxford University AI Project](https://www.law.ox.ac.uk/unlocking-potential-artificial-intelligence-english-law)]
 
 ## Unlocking the Potential of Artificial Intelligence for English Law
 
