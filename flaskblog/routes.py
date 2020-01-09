@@ -23,6 +23,7 @@ for i in df_list:
     posts.append(element)
 
 posts = posts[1:100]
+
 # construct the category
 old_categories = [('Industry 4.0', 'Industry 4.0'), ('Oxfordshire Plumbing',
                                                      'Oxfordshire Plumbing'), ('Engineering Construction', 'Engineering Construction')]
@@ -40,9 +41,7 @@ def home():
     complete_post_id_list = []
 
     for complete_post in complete:
-        print(type(complete_post.jobID))
         complete_post_id_list.append(complete_post.jobID)
-    print(complete_post_id_list)
 
     return render_template('home.html', posts=posts, labels=labels, keywords=keywords, complete=complete, complete_post_id_list=complete_post_id_list)
 

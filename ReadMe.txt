@@ -37,7 +37,7 @@ export FLASK_APP=run.py
 flask run --host=0.0.0.0
 
 ################## transfer data from server ##################
-rsync -avz -e ssh root@173.230.137.72:/root/wp4/flaskblog/29_dec_site.db /Users/Zi/Downloads --exclude='env' --exclude='*.py'
+rsync -avz -e root@173.230.137.72:/root/wp4/flaskblog/29_dec_site.db /Users/Zi/Downloads --exclude='env' --exclude='*.py'
 
 
 #### Get a look at the db ###
