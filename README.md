@@ -6,37 +6,27 @@ A project funded by the Industrial Strategy Challenge Fund's (ISCF) Next Generat
 and UK Research and Innovation (UKRI), run by researchers in the Oxford departments and faculties of Law, Economics,
 Computer Science, Education and the Said Business School, in 2019 and 2020.
 
-## Availability
+## Description
+Web tool for machine learning annotation
+1. Display JobText
+2. Add/delete labels/keywords for each JobID
+3. Add/delete category for the future RA to annotate
+4. Show table of frequency of keywords
+5. Dynamicly highlithing all the keywords
 
-### Supported Journals
 
-- Nature (all Journals under Nature Research)
-- Elsevier (all Journals under Elsevier)
-
-### Supported Institutions
-
-- University of Oxford
-
-## Contributing
-
-目前这个项目仍处于起步阶段。如果你发现任何地方可以用更好的方法实现，请直接邮件联系我（ tianyi.shi@oriel.ox.ac.uk ).
-
-当此项目的基础框架成熟后，主要有两种方式可以帮助推进这个项目。
-
-1. 在AUTH.py文件中，添加你的单位的登录方法。
-2. 添加更多的期刊支持。（创建新的`<期刊>.py`模块）
-
-### 登录方法
-
-使用Selenium模拟登陆。
-
-每种期刊的网页有不同的布局。每个`<期刊>`类要至少要有跳转登录，下载pdf和下载citation这三种方法。根据用户的配置文件，可以决定登录方式是OpenAthens, Shibboleth, 还是直接登录（个人订阅）。随后，通过Selenium找到对应的登录窗口（尤其对于机构登录，selenium是不可或缺的，因为经常需要填搜索框，而且有各种跳转），然后通过登录函数登录。
-
-这些登录函数保存在`AUTH.py`模块中。当用户第一次使用时，或者更新配置文件时，根据用户提供的机构信息，选择出对应的登录函数，并通过用户提供的用户名和密码实例化登录函数，并通过`dill`序列化保存到本地。随后，每次需要登录以取得cookie时，只需要读取这个实例化的登录函数即可。
-
-首先确定你所在的单位的验证方式（OpenAthens还是Shibboleth），并添加到`AUTH.py`的末尾的`AUTH`字典中。每个键值对的格式为`'<单位全称>': {'<shibboleth/openathens>', <对应的登录函数>}`.
-
-然后写登录函数。
-
-https://login.openathens.net
-
+## Install & Run
+'''shell
+1. sudo apt-get update
+2. sudo apt-get install python3-pip
+3. sudo apt install python3-venv
+4. git clone https://github.com/jianwang0212/wp4.git
+5. python3 -m venv /root/wp4/venv
+6. source venv/bin/activate && pip install --upgrade pip
+7. cd wp4 && pip3 install -r requirements.txt
+8.(freeze a requirement) pip freeze --local > requirement.txt
+9. deactivate
+10. cd wp4
+11. export FLASK_APP=run.py
+12. /root/wp4/venv/bin/python3 /root/wp4/venv/bin/flask run --host=0.0.0.0
+'''
